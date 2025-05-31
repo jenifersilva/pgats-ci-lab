@@ -13,8 +13,8 @@ on:
     # c - dia do mês
     # d - mês
     # e - dia da semana
-    # “At 01:45.”
-    - cron: '45 1 * * *'
+    # “At 06:00 on Saturday.”
+    - cron: '0 6 * * 6'
 
 # atividades/tarefas dentro do pipeline = jobs
 jobs:
