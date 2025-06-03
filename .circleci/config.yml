@@ -11,11 +11,14 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
+          command: yarn
+          name: Install project dependencies
+      - run:
           command: yarn playwright install
-          name: Instalação dos navegadores do playwright
+          name: Install Playwright browsers
       - run:
           command: yarn run e2e
-          name: Execução dos testes E2E
+          name: E2E tests execution
 
 workflows:
   run_e2e_tests:
