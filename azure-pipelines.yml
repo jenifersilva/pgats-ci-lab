@@ -8,12 +8,15 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  nodeVersion: '24.x'
+
 steps:
 - checkout: self
 
 - task: UseNode@1
   inputs:
-    checkLatest: true
+    version: $(nodeVersion)
   displayName: 'Instalação do Node.js'
 
 - script: npm install -g yarn
