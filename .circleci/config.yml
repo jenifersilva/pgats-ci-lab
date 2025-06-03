@@ -1,41 +1,23 @@
-# This config was automatically generated from your source code
-# Stacks detected: cicd:github-actions:.github/workflows,deps:node:.,test:jest:
 version: 2.1
+
 orbs:
-  node: circleci/node@5
+  node: circleci/node@7.1.0
+
 jobs:
-  test-node:
-    # Install node dependencies and run tests
+  run_e2e_tests:
     executor: node/default
-    environment:
-      JEST_JUNIT_OUTPUT_DIR: ./test-results/
     steps:
       - checkout
       - node/install-packages:
-          pkg-manager: npm
+          pkg-manager: yarn
       - run:
-          command: npm install jest-junit
+          command: yarn playwright install
+          name: Instalação dos navegadores do playwright
       - run:
-          name: Run tests
-          command: npm run test --ci --runInBand --reporters=default --reporters=jest-junit
-      - store_test_results:
-          path: ./test-results/
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-      - run:
-          name: found github actions config
-          command: ':'
+          command: yarn run e2e
+          name: Execução dos testes E2E
+
 workflows:
-  build-and-test:
+  run_e2e_tests:
     jobs:
-      - test-node
-    # - deploy:
-    #     requires:
-    #       - test-node
+      - run_e2e_tests
