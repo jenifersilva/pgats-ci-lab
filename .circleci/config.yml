@@ -1,0 +1,26 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@7.1.0
+
+jobs:
+  run_e2e_tests:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn
+          name: Install project dependencies
+      - run:
+          command: yarn playwright install --with-deps
+          name: Install Playwright browsers        
+      - run:
+          command: yarn run e2e
+          name: E2E tests execution
+
+workflows:
+  run_e2e_tests:
+    jobs:
+      - run_e2e_tests
