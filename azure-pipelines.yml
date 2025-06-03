@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+
+- task: UseNode@1
+  inputs:
+    checkLatest: true
+  displayName: 'Instalação do Node.js'
+
+- script: npm install -g yarn
+  displayName: 'Instalação do yarn'
+
+- script: yarn
+  displayName: 'Instalação das dependências do projeto'
+
+- script: yarn playwright install
+  displayName: 'Instalação dos navegadores do playwright'
+
+- script: yarn run e2e
+  displayName: Execução dos testes E2E
