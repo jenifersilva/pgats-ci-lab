@@ -1,0 +1,12 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+run_e2e_tests:
+  script:
+    - npm install -g yarn
+    - yarn
+    - yarn playwright install
+    - yarn run e2e
