@@ -5,9 +5,6 @@ stages:
 
 run_e2e_tests:
   stage: e2e_test
-  cache:
-    paths:
-      - node_modules/
   script:
     - yarn
     - yarn playwright install --with-deps
