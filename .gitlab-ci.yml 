@@ -6,7 +6,6 @@ cache:
 
 run_e2e_tests:
   script:
-    - npm install -g yarn
     - yarn
-    - yarn playwright install
+    - yarn playwright install --with-deps
     - yarn run e2e
