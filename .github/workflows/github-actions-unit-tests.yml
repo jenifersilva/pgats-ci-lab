@@ -1,9 +1,10 @@
 name: 'E2E tests'
 
 on:
-  [pull_request, push]:
+  push:
     branches:
       - main
+  pull_request:
 
 jobs:
   e2e-tests:
