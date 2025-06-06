@@ -22,10 +22,3 @@ jobs:
 
       - name: Run mutation tests
         run: yarn run test:mutation
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: mutation-tests-report
-          path: /reports/mutation/
-          retention-days: 30

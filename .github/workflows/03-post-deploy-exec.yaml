@@ -1,0 +1,30 @@
+# CI de Nível 03 - Disparo após a conclusão de um pipeline
+
+# nome do nosso 'pipeline'
+name: 'Execução por Deploy'
+
+# regras de disparo (gatilhos/trigger)
+# gatilho de execução a partir de outro pipeline = workflow_run
+on:
+  workflow_run:
+    workflows: ['E2E tests']
+    types:
+      - completed
+
+# atividades/tarefas dentro do pipeline = jobs
+jobs:
+  permissions:
+    pages: write      # to deploy to Pages
+    id-token: write   # to verify the deployment originates from an appropriate source
+
+  # Deploy to the github-pages environment
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+
+  # Specify runner + deployment step
+  runs-on: ubuntu-latest
+  steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action

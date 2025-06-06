@@ -35,7 +35,3 @@ jobs:
 
       - name: Run E2E tests
         run: yarn run e2e
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
