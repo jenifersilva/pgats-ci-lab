@@ -36,13 +36,6 @@ jobs:
       - name: Run E2E tests
         run: yarn run e2e
 
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: github-pages
-          path: playwright-report/
-          retention-days: 30
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
