@@ -1,10 +1,5 @@
 image: node:latest
 
-workflow:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == "main"'
-      when: always
-
 stages:
   - unit_test
 
