@@ -24,7 +24,6 @@ jobs:
 
     # passos do script de teste
     steps:
-
       # clone do projeto
       - uses: actions/checkout@v4
 
@@ -41,7 +40,7 @@ jobs:
       - name: Instalação das dependências do projeto
         run: yarn
 
-      # instalação dos navegadores do playwright 
+      # instalação dos navegadores do playwright
       - name: Instalação dos navegadores do playwright
         run: yarn playwright install
 

@@ -3,7 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
@@ -12,21 +12,21 @@ variables:
   nodeVersion: '24.x'
 
 steps:
-- checkout: self
+  - checkout: self
 
-- task: UseNode@1
-  inputs:
-    version: $(nodeVersion)
-  displayName: 'Instalação do Node.js'
+  - task: UseNode@1
+    inputs:
+      version: $(nodeVersion)
+    displayName: 'Install Node.js'
 
-- script: npm install -g yarn
-  displayName: 'Instalação do yarn'
+  - script: npm install -g yarn
+    displayName: 'Install yarn'
 
-- script: yarn
-  displayName: 'Instalação das dependências do projeto'
+  - script: yarn
+    displayName: 'Install project dependencies'
 
-- script: yarn playwright install
-  displayName: 'Instalação dos navegadores do playwright'
+  - script: yarn playwright install
+    displayName: 'Install Playwright browsers'
 
-- script: yarn run e2e
-  displayName: Execução dos testes E2E
+  - script: yarn run e2e
+    displayName: Run E2E tests

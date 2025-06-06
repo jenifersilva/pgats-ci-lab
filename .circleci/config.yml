@@ -15,7 +15,7 @@ jobs:
           name: Install project dependencies
       - run:
           command: yarn playwright install --with-deps
-          name: Install Playwright browsers        
+          name: Install Playwright browsers
       - run:
           command: yarn run e2e
           name: E2E tests execution

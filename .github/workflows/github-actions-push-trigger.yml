@@ -1,0 +1,29 @@
+name: 'Push on main'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install project dependencies
+        run: yarn
+
+      - name: Install Playwright browsers
+        run: yarn playwright install
+
+      - name: Run E2E tests
+        run: yarn run e2e
