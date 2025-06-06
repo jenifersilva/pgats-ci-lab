@@ -20,7 +20,7 @@ steps:
     displayName: 'Install Node.js'
 
   - script: npm install -g yarn
-    displayName: 'Install yarn'
+    displayName: 'Install Yarn'
 
   - script: yarn
     displayName: 'Install project dependencies'

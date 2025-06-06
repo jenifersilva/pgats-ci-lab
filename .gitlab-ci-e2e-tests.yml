@@ -1,0 +1,16 @@
+image: node:latest
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+
+stages:
+  - e2e_test
+
+e2e_test:
+  stage: e2e_test
+  script:
+    - yarn
+    - yarn playwright install --with-deps
+    - yarn run e2e

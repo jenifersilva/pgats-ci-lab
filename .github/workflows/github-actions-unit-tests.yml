@@ -1,0 +1,26 @@
+name: 'E2E tests'
+
+on:
+  [pull_request, push]:
+    branches:
+      - main
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install project dependencies
+        run: yarn
+
+      - name: Run unit tests
+        run: yarn run test

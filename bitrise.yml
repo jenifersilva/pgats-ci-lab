@@ -1,0 +1,156 @@
+---
+format_version: '23'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: node-js
+workflows:
+  run_unit_tests:
+    steps:
+      - activate-ssh-key@4: {}
+      - git-clone@8: {}
+      - script@1:
+          title: Install Node.js
+          inputs:
+            - content: |
+                #!/usr/bin/env bash
+                set -euxo pipefail
+
+                export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
+                envman add --key ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY --value latest_installed
+
+                pushd "${NODEJS_PROJECT_DIR:-.}" > /dev/null
+
+                # Bitrise stacks come with asdf pre-installed to help auto-switch between various software versions
+                # asdf looks for the Node.js version in these files: .tool-versions, .nvmrc, .node-version
+                # so it should work out-of-the-box even if the project uses another Node.js manager
+                # See: https://github.com/asdf-vm/asdf-nodejs
+                asdf install nodejs
+
+                popd > /dev/null
+      - restore-npm-cache@2: {}
+      - yarn@0:
+          title: Install Yarn
+          inputs:
+            - command: install
+      - yarn@0:
+          title: Run Yarn lint
+          inputs:
+            - command: run lint
+      - yarn@0:
+          title: Run unit tests
+          inputs:
+            - command: run test
+      - custom-test-results-export@1:
+          inputs:
+            - test_name: Unit Tests Report
+            - base_path: '$BITRISE_SOURCE_DIR/reports/coverage/lcov-report/'
+            - search_pattern: '*'
+            - bitrise_test_result_dir: '$BITRISE_HTML_REPORT_DIR'
+      - save-npm-cache@1: {}
+      - deploy-to-bitrise-io@2: {}
+    triggers:
+      push:
+        - branch: main
+      pull_request:
+        - source_branch: '*'
+  run_e2e_tests:
+    steps:
+      - activate-ssh-key@4: {}
+      - git-clone@8: {}
+      - script@1:
+          title: Install Node.js
+          inputs:
+            - content: |
+                #!/usr/bin/env bash
+                set -euxo pipefail
+
+                export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
+                envman add --key ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY --value latest_installed
+
+                pushd "${NODEJS_PROJECT_DIR:-.}" > /dev/null
+
+                # Bitrise stacks come with asdf pre-installed to help auto-switch between various software versions
+                # asdf looks for the Node.js version in these files: .tool-versions, .nvmrc, .node-version
+                # so it should work out-of-the-box even if the project uses another Node.js manager
+                # See: https://github.com/asdf-vm/asdf-nodejs
+                asdf install nodejs
+
+                popd > /dev/null
+      - restore-npm-cache@2: {}
+      - yarn@0:
+          title: Install project dependencies
+          inputs:
+            - command: install
+      - yarn@0:
+          inputs:
+            - command: playwright install --with-deps
+          title: Install Playwright browsers
+      - yarn@0:
+          title: Run E2E tests
+          inputs:
+            - command: run e2e
+      - custom-test-results-export@1:
+          inputs:
+            - test_name: E2E Tests Report
+            - base_path: '$BITRISE_SOURCE_DIR/playwright-report/'
+            - bitrise_test_result_dir: '$BITRISE_HTML_REPORT_DIR'
+            - search_pattern: '$BITRISE_SOURCE_DIR/playwright-report/*'
+      - save-npm-cache@1: {}
+      - deploy-to-bitrise-io@2: {}
+    triggers:
+      push:
+        - branch: main
+  run_mutation_tests:
+    steps:
+      - activate-ssh-key@4: {}
+      - git-clone@8: {}
+      - script@1:
+          title: Install Node.js
+          inputs:
+            - content: |
+                #!/usr/bin/env bash
+                set -euxo pipefail
+
+                export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_installed
+                envman add --key ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY --value latest_installed
+
+                pushd "${NODEJS_PROJECT_DIR:-.}" > /dev/null
+
+                # Bitrise stacks come with asdf pre-installed to help auto-switch between various software versions
+                # asdf looks for the Node.js version in these files: .tool-versions, .nvmrc, .node-version
+                # so it should work out-of-the-box even if the project uses another Node.js manager
+                # See: https://github.com/asdf-vm/asdf-nodejs
+                asdf install nodejs
+
+                popd > /dev/null
+      - restore-npm-cache@2: {}
+      - yarn@0:
+          title: Install project dependencies
+          inputs:
+            - command: install
+      - yarn@0:
+          title: Run mutation tests
+          inputs:
+            - command: run test:mutation
+      - custom-test-results-export@1:
+          inputs:
+            - test_name: Mutation Tests Report
+            - base_path: '$BITRISE_SOURCE_DIR/reports/mutation/'
+            - search_pattern: '*'
+            - bitrise_test_result_dir: '$BITRISE_HTML_REPORT_DIR'
+      - save-npm-cache@1: {}
+      - deploy-to-bitrise-io@2: {}
+    triggers:
+      push:
+        - branch: main
+      pull_request:
+        - source_branch: '*'
+      enabled: false
+meta:
+  bitrise.io:
+    stack: linux-docker-android-22.04
+    machine_type_id: elite
+app:
+  envs:
+    - NODEJS_PROJECT_DIR: '.'
+      opts:
+        is_expand: false

@@ -1,0 +1,14 @@
+image: node:latest
+
+workflow:
+  rules:
+    - when: manual
+
+stages:
+  - mutation_test
+
+mutation_test:
+  stage: mutation_test
+  script:
+    - yarn
+    - yarn run test:mutation

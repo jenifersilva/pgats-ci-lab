@@ -1,4 +1,4 @@
-name: 'Push on main'
+name: 'E2E tests'
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: latest
 
-      - name: Install yarn
+      - name: Install Yarn
         run: npm install -g yarn
 
       - name: Install project dependencies
