@@ -45,6 +45,7 @@ jobs:
       - name: Upload GitHub Pages artifacts
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        if: ${{ always() }}
         with:
           path: ./playwright-report
 
@@ -65,3 +66,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        if: ${{ always() }}

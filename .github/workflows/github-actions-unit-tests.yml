@@ -45,6 +45,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
           path: ./reports/coverage/lcov-report
+        if: ${{ always() }}
 
   deploy-github-pages:
     permissions:
@@ -63,3 +64,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: unit-tests-report
         uses: actions/deploy-pages@v4
+        if: ${{ always() }}
