@@ -12,3 +12,15 @@ on:
       - completed
 
 # atividades/tarefas dentro do pipeline = jobs
+jobs:
+  e2e-tests:
+    # máquina que o job vai executar
+    runs-on: ubuntu-latest
+
+    # condicional - if
+    # if: ${ expressão }
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    # passos do script de teste
+    steps:
+      - run: echo 'Execution OK'
