@@ -1,0 +1,19 @@
+name: 'Setup Node and Yarn'
+description: 'Configura ambiente Node.js com Yarn e instala dependências'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: latest
+
+    - name: Install Yarn
+      run: npm install -g yarn
+      shell: bash
+
+    - name: Install project dependencies
+      run: yarn
+      shell: bash
