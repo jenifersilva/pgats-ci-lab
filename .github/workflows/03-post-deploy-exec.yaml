@@ -13,14 +13,27 @@ on:
 
 # atividades/tarefas dentro do pipeline = jobs
 jobs:
-  e2e-tests:
+  build-and-deploy:
     # máquina que o job vai executar
     runs-on: ubuntu-latest
 
     # condicional - if
     # if: ${ expressão }
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     # passos do script de teste
     steps:
-      - run: echo 'Execution Finished'
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-env
+
+      - name: Create Report files
+        run: |
+          mkdir -p site/e2e
+          cp -r reports/e2e/* site/e2e
+
+      - name: Publish GitHub Pages
+        uses: peaceiris/actions-ghpages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
