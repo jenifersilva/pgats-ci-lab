@@ -24,15 +24,10 @@ jobs:
         with:
           path: ./reports/coverage/lcov-report
 
-      - name: Create Report files
-        if: ${{ always() }}
-        run: |
-          mkdir -p site/coverage
-          cp -r ./reports/coverage/lcov-report/* site/coverage
-
       - name: Publish GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          publish_dir: ./reports/coverage/lcov-report
+          destination_dir: coverage
           publish_branch: gh-pages

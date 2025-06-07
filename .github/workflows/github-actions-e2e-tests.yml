@@ -26,14 +26,10 @@ jobs:
         with:
           path: ./playwright-report
 
-      - name: Create Report files
-        run: |
-          mkdir -p site/e2e
-          cp -r ./playwright-report/* site/e2e
-
       - name: Publish GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          publish_dir: ./playwright-report
+          destination_dir: e2e
           publish_branch: gh-pages

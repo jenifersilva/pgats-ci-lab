@@ -21,15 +21,10 @@ jobs:
         with:
           path: ./reports/mutation
 
-      - name: Create Report files
-        if: ${{ always() }}
-        run: |
-          mkdir -p site/mutation
-          cp -r ./reports/mutation/* site/mutation
-
       - name: Publish GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          publish_dir: ./reports/mutation
+          destination_dir: mutation
           publish_branch: gh-pages
