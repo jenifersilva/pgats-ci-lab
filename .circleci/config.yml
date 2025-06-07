@@ -14,6 +14,9 @@ jobs:
           command: yarn
           name: Install project dependencies
       - run:
+          name: Auto-fix code formatting with Prettier
+          command: yarn prettier --write --ignore-path .gitignore .
+      - run:
           command: yarn lint
           name: Code linting
   run_unit_tests:
