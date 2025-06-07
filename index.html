@@ -2,14 +2,88 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Relatórios do Projeto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Reports</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 1rem 0;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    a:hover {
+      background-color: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 1rem;
+      }
+
+      a {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Relatórios do Projeto</h1>
-  <ul>
-    <li><a href="coverage/index.html">Cobertura de Código</a></li>
-    <li><a href="mutation/mutation.html">Testes de Mutação</a></li>
-    <li><a href="e2e/index.html">Testes End-to-End</a></li>
-  </ul>
+  <header>
+    <h1>Project Reports</h1>
+  </header>
+
+  <main>
+    <ul>
+      <li><a href="coverage/index.html">🃏 Jest - Code Coverage</a></li>
+      <li><a href="mutation/mutation.html">🇸 Stryker - Mutation Tests</a></li>
+      <li><a href="e2e/index.html">🎭 Playwright - End-to-End Tests</a></li>
+    </ul>
+  </main>
 </body>
 </html>
