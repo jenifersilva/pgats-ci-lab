@@ -4,8 +4,6 @@ description: 'Configura ambiente Node.js com Yarn e instala dependências'
 runs:
   using: 'composite'
   steps:
-    - uses: actions/checkout@v4
-
     - uses: actions/setup-node@v4
       with:
         node-version: latest

@@ -9,7 +9,9 @@ jobs:
   inspecao:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./actions/setup-env
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-env
 
       - name: Code linting
         run: yarn lint
@@ -17,7 +19,9 @@ jobs:
   unidade:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./actions/setup-env
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-env
 
       - name: Run unit tests
         run: yarn run test
@@ -25,7 +29,9 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./actions/setup-env
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-env
 
       - name: Install Playwright browsers
         run: yarn playwright install
