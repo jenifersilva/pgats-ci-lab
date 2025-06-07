@@ -54,7 +54,7 @@ jobs:
       id-token: write
 
     environment:
-      name: github-pages
+      name: E2E Tests Report
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
