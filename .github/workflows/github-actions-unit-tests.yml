@@ -16,7 +16,7 @@ jobs:
 
     environment:
       name: Unit Tests Report
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.step_id.outputs.url_output }}
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
           path: ./reports/coverage/lcov-report
 
       - name: Upload GitHub Pages artifacts
-        id: deployment
+        id: unit-test
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
           path: ./reports/coverage/lcov-report
@@ -53,7 +53,7 @@ jobs:
 
     environment:
       name: Unit Tests Report
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.step_id.outputs.url_output }}
 
     runs-on: ubuntu-latest
 
@@ -61,5 +61,5 @@ jobs:
 
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: unit-test
         uses: actions/deploy-pages@v4
