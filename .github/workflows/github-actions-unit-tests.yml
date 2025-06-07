@@ -16,6 +16,9 @@ jobs:
 
       - uses: ./.github/actions/setup-env
 
+      - name: Code linting
+        run: yarn lint
+
       - name: Run unit tests
         run: yarn run test
 
