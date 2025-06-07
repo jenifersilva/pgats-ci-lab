@@ -33,7 +33,7 @@ jobs:
         if: ${{ always() }}
         run: |
           mkdir -p site/mutation
-          cp -r reports/mutation/* site/mutation
+          cp -r ./reports/mutation/* site/mutation
 
   deploy-github-pages:
     runs-on: ubuntu-latest

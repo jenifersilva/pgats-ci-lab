@@ -37,4 +37,4 @@ jobs:
       - name: Create Report files
         run: |
           mkdir -p site/e2e
-          cp -r reports/e2e/* site/e2e
+          cp -r ./playwright-report/* site/e2e
