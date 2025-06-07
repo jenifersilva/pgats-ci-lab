@@ -25,13 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup-env
-
-      - name: Create Report files
-        run: |
-          mkdir -p site/e2e
-          cp -r reports/e2e/* site/e2e
-
       - name: Publish GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
