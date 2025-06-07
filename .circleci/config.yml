@@ -28,11 +28,8 @@ jobs:
       - run:
           command: yarn run test
           name: Unit tests execution
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/
-            JEST_JUNIT_ADD_FILE_ATTRIBUTE: "true"
-      - store_test_results:
-          path: ./reports/coverage/lcov-report
+      - store_artifacts:
+          path: reports/coverage/lcov-report
   run_e2e_tests:
     executor: node/default
     steps:
@@ -48,8 +45,8 @@ jobs:
       - run:
           command: yarn run e2e
           name: E2E tests execution
-      - store_test_results:
-          path: ./playwright-report
+      - store_artifacts:
+          path: playwright-report
   run_mutation_tests:
     executor: node/default
     steps:
@@ -62,8 +59,8 @@ jobs:
       - run:
           command: yarn run test:mutation
           name: Mutation tests execution
-      - store_test_results:
-          path: ./reports/mutation
+      - store_artifacts:
+          path: reports/mutation
 workflows:
   code_linting:
     jobs:
