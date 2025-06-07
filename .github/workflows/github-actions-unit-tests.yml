@@ -35,6 +35,8 @@ jobs:
   deploy-github-pages:
     runs-on: ubuntu-latest
 
+    needs: unit-tests
+
     steps:
       - name: Create Report files
         if: ${{ always() }}
