@@ -33,6 +33,8 @@ jobs:
           path: ./reports/coverage/lcov-report
 
   deploy-github-pages:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Create Report files
         if: ${{ always() }}
